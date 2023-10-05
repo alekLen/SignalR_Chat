@@ -1,0 +1,90 @@
+﻿html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin: 60px;
+    margin-top: 20px;   
+    background-color: azure;
+}
+
+.card1 {
+    display: flex;
+    justify-content:center;
+    border-radius: 12px;
+    box-shadow: -5px -5px 10px #FFF, 5px 5px 10px #BABECC;
+    font-size: 30px;
+    font-weight: bold;
+    background-color: #EBECF0;
+    padding: 5px;
+    color: midnightblue;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.card {
+    margin: 0;
+    padding: 15px;
+    overflow-wrap: break-word;
+    color: #565860;
+    resize: none;
+    line-height: 30px;
+    outline: none;
+    border: none;
+    width: 700px;
+    justify-items: flex-end;
+    border-radius: 6px;
+    background-color: #EBECF0;
+    box-shadow: inset 2px 2px 5px #BABECC, inset -2px -2px 4px #FFF;
+    transition: all 0.1s ease-in-out;
+    font-weight: bold;
+}
+
+.card2 {
+    margin: 10px;
+    padding: 5px;
+    color: #565860;
+    resize: none;
+    line-height: 10px;
+    outline: none;
+    border: none;
+    justify-items: flex-end;
+    border-radius: 6px;
+    background-color: #EBECF0;
+    box-shadow: inset 2px 2px 5px #BABECC, inset -2px -2px 4px #FFF;
+    transition: all 0.1s ease-in-out;
+    font-weight: bold;
+}
+
+.c {
+    display: flex;
+    justify-content: flex-end;
+    width: 700px;
+}
+
+.c1 {
+    width: 500px;
+}
+.c2 {
+    width: 300px;
+}
+.c3 {
+    width: 250px;
+}
+.b1 {
+    margin-bottom: 100px;
+}

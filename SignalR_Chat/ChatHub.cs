@@ -35,15 +35,7 @@ namespace SignalR_Chat
                 await Clients.All.SendAsync("AddMessage", username, message, mes.MessageDate);
             }
         }
-      /* public async Task GetMessages()
-        {
-            List<Message> list = await rep.GetMessage();
-            foreach (var l in list)
-            {              
-                // Вызов метода AddMessage на всех клиентах
-                await Clients.Caller.SendAsync("AddMessage", l.user.Name, l.Text, l.MessageDate);
-            }
-        }*/
+     
       
         // Подключение нового пользователя
         public async Task Connect(string userName)
