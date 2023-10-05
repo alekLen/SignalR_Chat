@@ -28,7 +28,8 @@ namespace SignalR_Chat
             {
                 mes.Text = message; 
                 mes.user = user;
-                mes.MessageDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+               // mes.MessageDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                mes.MessageDate = DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss");
                 await rep.AddMessage(mes);
                 await rep.Save();
                 // Вызов метода AddMessage на всех клиентах
