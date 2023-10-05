@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using SignalR_Chat;
+using SignalR_Chat.Repository;
 using SignalR_Chat.Models;// пространство имен класса ChatHub
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +12,7 @@ string? connection = builder.Configuration.GetConnectionString("DefaultConnectio
 
 // добавляем контекст ApplicationContext в качестве сервиса в приложение
 builder.Services.AddDbContext<ChatContext>(options => options.UseSqlServer(connection));
+builder.Services.AddScoped<IChatRepository, ChatRepository>();
 
 
 var app = builder.Build();

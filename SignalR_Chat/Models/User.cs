@@ -6,5 +6,6 @@
         public string Name { get; set; }
         public string? ConnectionId { get; set; }
         public ICollection<Message>? Messages { get; set; }
+        public string Active { get; set; }
     }
 }

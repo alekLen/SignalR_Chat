@@ -51,11 +51,11 @@
 
             // Метод hubConnection.on устанавливает функцию на стороне клиента, 
             // которая будет получать данные от сервера (хаба)
-            hubConnection.on("AddMessage", function (name, message) {
+            hubConnection.on("AddMessage", function (name, message,time) {
                 // Добавление сообщений на веб-страницу
                 $('#chatroom').append('<p><b>' + htmlEncode(name)
-                    + '</b>: <i>' + htmlEncode(message) + '</i></p>');
-            });
+                    + '</b>: <i>' + htmlEncode(message) + '</i>: <small>' + htmlEncode(time) + '</small></p>');
+            });          
 
             // Функция, вызываемая сервером при подключении нового пользователя
             hubConnection.on("Connected", function (id, userName, allUsers) {
@@ -68,22 +68,30 @@
                 $('#header').html('<h3>Добро пожаловать, ' + userName + '</h3>');
 
                 // Добавление всех пользователей
-                for (i = 0; i < allUsers.length; i++) {
+              for (i = 0; i < allUsers.length; i++) {
 
-                    AddUser(allUsers[i].connectionId, allUsers[i].name);
+                    AddUser(allUsers[i].connectionId, allUsers[i].name, allUsers[i].active);
                 }
+               // AddUser(allUsers);
             });
 
             // Функция, вызываемая сервером для добавления нового пользователя
-            hubConnection.on("NewUserConnected", function (id, name) {
+            hubConnection.on("NewUserConnected", function (id, name,allUsers) {
 
-                AddUser(id, name);
+               // AddUser(id, name,true);
+               /* $("#chatusers").empty();
+                for (i = 0; i < allUsers.length; i++) {
+
+                    AddUser(allUsers[i].connectionId, allUsers[i].name, allUsers[i].active);
+                }*/
+                updateUser(allUsers);
             });
 
              // Функция, вызываемая сервером для удаления пользователя
-            hubConnection.on("UserDisconnected", function (id, userName) {
+            hubConnection.on("UserDisconnected", function (allUsers) {
 
-                $('#' + id).remove();
+                updateUser(allUsers);
+               // $('#' + id).remove();
             });
 
             // Открываем соединение с сервером.
@@ -116,6 +124,8 @@
                                     .catch(function (err) {
                                         return console.error(err.toString());
                                     });
+                                
+                                
                             }
                             else {
                                 alert("Введите имя");
@@ -133,15 +143,37 @@
             return encodedValue;
         }
         //Добавление нового пользователя
-        function AddUser(id, name) {
-
+       function AddUser(id, name,active) {
             let userId = $('#hdId').val();
 
             if (name !== undefined && userId !== id) {
-
-                $("#chatusers").append('<li id="' + id + '"><b>' + name + '</b></li>');
+                if (active=="true")
+                    var s = "<small style='color:green'>в сети</small>";
+                else
+                    var s = "<small style='color:green'>отсутствует</small>";
+                $("#chatusers").append('<li id="' + id + '"><b>' + name + '</b>'+s+'</li>');
             }
         }
+        function updateUser(allUsers) {
+            $("#chatusers").empty();
+            for (i = 0; i < allUsers.length; i++) {
+
+                AddUser(allUsers[i].connectionId, allUsers[i].name, allUsers[i].active);
+            }
+        }
+          /*  function AddUser(users) {
+                //$("#chatusers ul").empty();
+                let userId = $('#hdId').val();
+                for (i = 0; i < users.length; i++) {
+                    if (users[i].Name !== undefined && userId !== users[i].ConnectionId) {
+                        if (users[i].Activ)
+                            var s = "<small style='color:green'>в сети</small>";
+                        else
+                            var s = "<small style='color:green'>отсутствует</small>";
+                        $("#chatusers").append('<li id="' + id + '"><b>' + users[i].name + '</b>' + s + '</li>');
+                    }
+                }
+            }*/
     </script>
 </body>
 </html>
