@@ -83,8 +83,14 @@ body {
     width: 300px;
 }
 .c3 {
-    width: 250px;
+    width: 200px;
 }
 .b1 {
-    margin-bottom: 100px;
+    margin-bottom: 60px;
+}
+.fix {
+    position: fixed;
+}
+.small{
+    font-size:0.8em;
 }

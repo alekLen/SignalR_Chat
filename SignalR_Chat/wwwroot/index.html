@@ -8,18 +8,19 @@
 </head>
 <body>
     <div style="margin-left:50px;" class="c2">
-        <h1>Чат-комната</h1><br /><br />
+        <h1 class="fix">Чат-комната</h1><br /><br />
 </div>
-        <div class="main" style="display:flex">
-            <div id="loginBlock"  class="card c2 b1">
+        <div class="main" style="display: flex; ">
+            <div id="loginBlock"  class="card c2 b1" style="margin-top: 60px;">
                 Введите логин:<br />
                 <input id="txtUserName" type="text" class="form-control" />
                 <input id="btnLogin" type="button" value="Войти" class="btn btn-default" />
             </div>
-            <div style="position: fixed; margin-bottom: 60px;padding:20px;" class ="card c3" >
+            <div style="position: fixed; padding: 20px; margin-top: 60px;" class ="card c3" >
                 <div id="chatBody">
                     <div id="header"></div>
                     <div id="inputForm">
+                        <span class="small">введите сообщение:</span>
                         <input type="text" id="message" class="form-control" />
                         <input type="button" id="sendmessage" value="Отправить" class="btn btn-default" />
                     </div>
@@ -31,7 +32,7 @@
                     </div>
                 </div>
             </div>
-            <div id="chatroom" style="margin-left:400px;margin-bottom:100px;" > <h2>Сообщения</h2></div>
+            <div id="chatroom" style="margin-left:300px;margin-top:60px;" ></div>
 
             <input id="hdId" type="hidden" />
             <input id="username" type="hidden" />
@@ -62,7 +63,7 @@
                 hubConnection.on("AddMessage", function (name, message, time) {
                     // Добавление сообщений на веб-страницу
                     $('#chatroom').append('<p><b>' + htmlEncode(name)
-                        + '</b>: <i class="card">' + htmlEncode(message) + '</i>: <small>' + htmlEncode(time) + '</small></p><br />');
+                        + '</b>: <i class="card">' + htmlEncode(message) + '</i>&nbsp; <small>' + htmlEncode(time) + '</small></p><br />');
                 });
 
                 // Функция, вызываемая сервером при подключении нового пользователя
@@ -114,11 +115,17 @@
                             // Вызываем у хаба метод Send и передаем ему данные.
                             // В случае, если при отправке возникнет ошибка,
                             // то сработает функция, которая передается в метод catch().
-                            hubConnection.invoke("Send", $('#username').val(), $('#message').val())
-                                .catch(function (err) {
-                                    return console.error(err.toString());
-                                });
-                            $('#message').val('');
+                            var m = $('#message').val();
+                            if (m.length > 0) {
+                                hubConnection.invoke("Send", $('#username').val(), $('#message').val())
+                                    .catch(function (err) {
+                                        return console.error(err.toString());
+                                    });
+                                $('#message').val('');
+                            }
+                            else {
+                                alert("введите сообщение!");
+                            }
                         });
 
                         // обработка логина
@@ -158,7 +165,7 @@
                     if (active == "true")
                         var s = "<small style='color:green'>в сети</small>";
                     else
-                        var s = "<small style='color:green'>отсутствует</small>";
+                        var s = "<small style='color:red'>отсутствует</small>";
                     $("#chatusers").append('<li id="' + id + '"><b>' + name + '</b>&nbsp;&nbsp;' + s + '</li>');
                 }
             }
