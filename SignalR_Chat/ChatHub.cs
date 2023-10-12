@@ -28,7 +28,6 @@ namespace SignalR_Chat
             {
                 mes.Text = message; 
                 mes.user = user;
-               // mes.MessageDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                 mes.MessageDate = DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss");
                 await rep.AddMessage(mes);
                 await rep.Save();
@@ -59,9 +58,7 @@ namespace SignalR_Chat
           await Clients.Caller.SendAsync("Connected", id, userName, Users.ToList());
 
             // Вызов метода NewUserConnected на всех клиентах, кроме клиента с определенным id
-            // await Clients.AllExcept(id).SendAsync("NewUserConnected", id, userName);
-            await Clients.AllExcept(id).SendAsync("NewUserConnected", id, userName, Users.ToList());
-
+            await Clients.AllExcept(id).SendAsync("NewUserConnectedUserDisconnected", Users.ToList());
             List<Message> list = await rep.GetMessage();
                 foreach (var l in list)
                 {
@@ -80,11 +77,10 @@ namespace SignalR_Chat
             if (item != null)
             {
                 rep.UpdateUser(item, "", "false");
-                await rep.Save();
-                //var id = Context.ConnectionId;
+                await rep.Save();          
                 IEnumerable<UserViewModel> Users = await rep.GetViewUsers();
                 // Вызов метода UserDisconnected на всех клиентах
-                await Clients.All.SendAsync("UserDisconnected", Users.ToList());
+                await Clients.All.SendAsync("NewUserConnectedUserDisconnected", Users.ToList());
             }
 
             await base.OnDisconnectedAsync(exception);

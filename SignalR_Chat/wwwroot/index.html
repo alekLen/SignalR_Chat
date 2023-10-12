@@ -83,21 +83,9 @@
                     }
                     // AddUser(allUsers);
                 });
-
-                // Функция, вызываемая сервером для добавления нового пользователя
-                hubConnection.on("NewUserConnected", function (id, name, allUsers) {
-
-                    // AddUser(id, name,true);
-                    /* $("#chatusers").empty();
-                     for (i = 0; i < allUsers.length; i++) {
-
-                         AddUser(allUsers[i].connectionId, allUsers[i].name, allUsers[i].active);
-                     }*/
-                    updateUser(allUsers);
-                });
-
-                // Функция, вызываемая сервером для удаления пользователя
-                hubConnection.on("UserDisconnected", function (allUsers) {
+                            
+                // Функция, вызываемая сервером для при подключении и отключении пользователя пользователя
+                hubConnection.on("NewUserConnectedUserDisconnected", function (allUsers) {
 
                     updateUser(allUsers);
                     // $('#' + id).remove();
